@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowMart - Shop with Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #000010, #000);
+    color: #fff;
+    overflow-x: hidden;
+  }
+  header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(90deg, #00f, #0ff, #0f0, #f0f, #f00);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    font-size: 2.5em;
+    font-weight: 700;
+    -webkit-text-stroke: 1px #000;
+    text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
+  }
+  @keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  .controls {
+    text-align: center;
+    margin: 20px;
+  }
+  input, select {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    margin: 5px;
+    background: #111;
+    color: #fff;
+    box-shadow: 0 0 10px #0ff;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  .product {
+    background: #111;
+    border-radius: 15px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 0 10px #00ffff55;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #0ff, 0 0 60px #0f0;
+  }
+  .product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .product h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #00f;
+  }
+  .product p {
+    color: #aaa;
+  }
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #0ff, #00f);
+    color: #000;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: linear-gradient(45deg, #0f0, #0ff);
+  }
+  @media(max-width:600px){
+    header {font-size: 1.8em;}
+  }
+</style>
+</head>
+<body>
+<header>GlowMart - Your Stylish Store</header>
+<div class="controls">
+  <input type="text" id="search" placeholder="Search products...">
+  <select id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="electronics">Electronics</option>
+    <option value="fashion">Fashion</option>
+    <option value="home">Home & Kitchen</option>
+    <option value="beauty">Beauty</option>
+    <option value="sports">Sports</option>
+  </select>
+</div>
+<div class="product-grid" id="productGrid"></div>
+<script>
+  const products = [
+    {name:'Smartphone X', category:'electronics', img:'https://via.placeholder.com/220x200?text=Smartphone'},
+    {name:'Wireless Earbuds', category:'electronics', img:'https://via.placeholder.com/220x200?text=Earbuds'},
+    {name:'Smartwatch Pro', category:'electronics', img:'https://via.placeholder.com/220x200?text=Smartwatch'},
+    {name:'LED TV 4K', category:'electronics', img:'https://via.placeholder.com/220x200?text=LED+TV'},
+    {name:'Gaming Laptop', category:'electronics', img:'https://via.placeholder.com/220x200?text=Laptop'},
+    {name:'Bluetooth Speaker', category:'electronics', img:'https://via.placeholder.com/220x200?text=Speaker'},
+    {name:'Running Shoes', category:'fashion', img:'https://via.placeholder.com/220x200?text=Shoes'},
+    {name:'Designer Jacket', category:'fashion', img:'https://via.placeholder.com/220x200?text=Jacket'},
+    {name:'Casual T-shirt', category:'fashion', img:'https://via.placeholder.com/220x200?text=T-shirt'},
+    {name:'Formal Watch', category:'fashion', img:'https://via.placeholder.com/220x200?text=Watch'},
+    {name:'Sunglasses', category:'fashion', img:'https://via.placeholder.com/220x200?text=Sunglasses'},
+    {name:'Handbag', category:'fashion', img:'https://via.placeholder.com/220x200?text=Handbag'},
+    {name:'Air Fryer', category:'home', img:'https://via.placeholder.com/220x200?text=Air+Fryer'},
+    {name:'Coffee Maker', category:'home', img:'https://via.placeholder.com/220x200?text=Coffee+Maker'},
+    {name:'Vacuum Cleaner', category:'home', img:'https://via.placeholder.com/220x200?text=Vacuum'},
+    {name:'LED Lamp', category:'home', img:'https://via.placeholder.com/220x200?text=Lamp'},
+    {name:'Electric Kettle', category:'home', img:'https://via.placeholder.com/220x200?text=Kettle'},
+    {name:'Wall Clock', category:'home', img:'https://via.placeholder.com/220x200?text=Clock'},
+    {name:'Makeup Kit', category:'beauty', img:'https://via.placeholder.com/220x200?text=Makeup'},
+    {name:'Perfume', category:'beauty', img:'https://via.placeholder.com/220x200?text=Perfume'},
+    {name:'Hair Dryer', category:'beauty', img:'https://via.placeholder.com/220x200?text=Hair+Dryer'},
+    {name:'Face Cream', category:'beauty', img:'https://via.placeholder.com/220x200?text=Cream'},
+    {name:'Lipstick Set', category:'beauty', img:'https://via.placeholder.com/220x200?text=Lipstick'},
+    {name:'Nail Polish', category:'beauty', img:'https://via.placeholder.com/220x200?text=Nail+Polish'},
+    {name:'Yoga Mat', category:'sports', img:'https://via.placeholder.com/220x200?text=Yoga+Mat'},
+    {name:'Dumbbell Set', category:'sports', img:'https://via.placeholder.com/220x200?text=Dumbbell'},
+    {name:'Football', category:'sports', img:'https://via.placeholder.com/220x200?text=Football'},
+    {name:'Cricket Bat', category:'sports', img:'https://via.placeholder.com/220x200?text=Bat'},
+    {name:'Tennis Racket', category:'sports', img:'https://via.placeholder.com/220x200?text=Racket'},
+    {name:'Running Shorts', category:'sports', img:'https://via.placeholder.com/220x200?text=Shorts'}
+  ];
+  const grid = document.getElementById('productGrid');
+  const search = document.getElementById('search');
+  const filter = document.getElementById('categoryFilter');
+
+  function renderProducts(){
+    const term = search.value.toLowerCase();
+    const cat = filter.value;
+    grid.innerHTML = '';
+    products.filter(p => (cat==='all'||p.category===cat)&&p.name.toLowerCase().includes(term)).forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product';
+      card.innerHTML = `<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3><p>${p.category}</p><button class='btn' onclick="location.href='https://wa.me/9779869990242?text=I%20want%20to%20buy%20${encodeURIComponent(p.name)}'">Add to Cart</button>`;
+      grid.appendChild(card);
+    });
+  }
+  search.addEventListener('input', renderProducts);
+  filter.addEventListener('change', renderProducts);
+  renderProducts();
+</script>
+</body>
+</html>

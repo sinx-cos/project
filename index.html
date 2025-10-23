@@ -1,40 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop with Dhiraj</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DHIRAJ — Frontend Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent1: #ff6ec7;
+      --accent2: #6ec1ff;
+      --accent3: #ffe66e;
+      --glow1: rgba(255,110,199,0.8);
+      --glow2: rgba(110,193,255,0.5);
+      --glow3: rgba(255,230,110,0.4);
+    }
 
-  body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    overflow-x: hidden;
-  }
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    html, body {height:100%; background: linear-gradient(120deg, #f7ecff, #fff9fd, #ecf7ff);}
 
-  /* ===== FIXED SEARCH BAR ===== */
-  .search-bar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(15px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 20px;
-    z-index: 1000;
-    border-bottom: 2px solid rgba(0, 255, 255, 0.4);
-  }
+    body {display:flex; justify-content:center; align-items:center;}
 
-  .search-bar input {
-    width: 50%;
-    max-width: 500px;
-    padding: 12px 15px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1em;
+    .wrap {width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:40px; position:relative;}
+
+    /* Galaxy animated background */
+    .galaxy {position:fixed; inset:0; z-index:-10; overflow:hidden; background: linear-gradient(120deg, #f7ecff, #fff9fd, #ecf7ff);}
+    .stars, .stars2, .stars3 {position:absolute; top:0; left:0; width:200%; height:200%; border-radius:50%;}
+    .stars {background: radial-gradient(#ffffff 0.6px, transparent 0.7px); background-size:12px 12px; animation:moveStars 90s linear infinite; opacity:0.8;}
+    .stars2 {background: radial-gradient(#ffffff 0.6px, transparent 0.7px); background-size:18px 18px; animation:moveStars 140s linear infinite reverse; opacity:0.6;}
+    .stars3 {background: radial-gradient(#ffffff 0.6px, transparent 0.7px); background-size:28px 28px; animation:moveStars 220s linear infinite; opacity:0.4;}
+    @keyframes moveStars {0%{transform:translateY(0);}100%{transform:translateY(-1000px);}}
+
+    /* Card */
+    .card {background:#fff; max-width:1000px; width:100%; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.1); padding:40px; display:grid; grid-template-columns:1fr 400px; gap:40px; align-items:start; overflow:hidden;}
+
+    /* Heading */
+    h1 {font-size:56px; font-weight:900; line-height:1.1; background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3)); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 15px var(--glow1), 0 0 25px var(--glow2), 0 0 35px var(--glow3); animation:glowPulse 3s infinite alternate;}
+    @keyframes glowPulse {0%{text-shadow:0 0 10px var(--glow1),0 0 20px var(--glow2),0 0 30px var(--glow3);}50%{text-shadow:0 0 20px var(--glow1),0 0 35px var(--glow2),0 0 50px var(--glow3);}100%{text-shadow:0 0 10px var(--glow1),0 0 20px var(--glow2),0 0 30px var(--glow3);}}
+
+    .tagline {margin-top:10px; font-size:20px; font-weight:600; background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3)); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 6px var(--glow1),0 0 12px var(--glow2),0 0 18px var(--glow3); animation:fadeIn 2s ease forwards;}
+
+    .bio {margin-top:20px; font-size:16px; line-height:1.8; background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3)); -webkit-background-clip: text; color: transparent; text-shadow:0 0 5px var(--glow1),0 0 10px var(--glow2),0 0 15px var(--glow3); animation:fadeIn 2s 0.5s ease forwards; opacity:0;}
+
+    @keyframes fadeIn {to{opacity:1;}}
+
+    /* Skills */
+    .skills {display:flex; flex-wrap:wrap; gap:12px; margin-top:30px;}
+    .skill {padding:10px 16px; border-radius:50px; background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff; font-weight:700; text-shadow:0 0 5px rgba(0,0,0,0.2); transition:transform 0.3s ease, box-shadow 0.3s ease; cursor:pointer;}
+    .skill:hover {transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15);}
+
+    /* Panel */
+    .panel {background:#fefefe; border-radius:16px; padding:20px; box-shadow:0 15px 40px rgba(0,0,0,0.05);}
+    .panel h3 {margin-bottom:12px; font-weight:700; font-size:20px; color:#333;}
+    .info {font-size:14px; color:#555; line-height:1.5; margin-bottom:8px;}
+
+    @media(max-width:900px) {.card{grid-template-columns:1fr;} h1{font-size:40px;}}
+  </style>
+</head>
+<body>
+  <div class="galaxy">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+  </div>
+
+  <main class="wrap">
+    <section class="card">
+      <div>
+        <h1>DHIRAJ — Frontend Developer</h1>
+        <p class="tagline">I create interactive, modern user interfaces and love exploring new web technologies.</p>
+        <p class="bio">
+          Hello! I am Dhiraj, a passionate frontend developer from Birendranagar-1, Surkhet, Nepal. Currently, I am a Class 12 student specializing in Computer Science at Mount Everest Secondary School. My journey in web development began with curiosity about how websites work, and since then, I have dedicated myself to mastering the art of crafting user-friendly, visually appealing interfaces.
+
+          Over the years, I have gained extensive experience with HTML, CSS, JavaScript, and React, and I continually explore new technologies such as Tailwind CSS, Vite, and WebGL. I love designing responsive websites that function seamlessly across all devices while incorporating modern aesthetics, animations, and smooth interactivity.
+
+          Beyond coding, I actively engage in learning new tools, frameworks, and libraries to stay ahead of trends. I have developed personal projects, school assignments, and small web apps that highlight my creativity and technical skills. My work demonstrates my ability to combine functionality, accessibility, and stunning visuals into cohesive user experiences.
+
+          My skillset is complemented by strong problem-solving abilities, creativity, and a collaborative mindset. I often participate in school projects that require teamwork, critical thinking, and innovation. I also dedicate time to UI/UX experimentation, learning about color theory, design systems, and user-centered design principles to enhance my web projects.
+
+          In addition, I am passionate about computer graphics and 3D web applications, using WebGL and Three.js to create immersive visual experiences. Exploring modern web technologies allows me to experiment with cutting-edge effects and push the boundaries of what can be achieved on the web.
+
+          Outside of technical skills, I enjoy learning from online courses, tutorials, and coding communities. I actively follow web development trends, experiment with new design concepts, and challenge myself to implement creative solutions. I aim to contribute to open-source projects and build a professional portfolio that reflects both my technical knowledge and creative flair.
+
+          My long-term goal is to become a professional frontend developer and designer, creating interactive web applications, contributing to innovative projects, and continuously learning new technologies. I believe that technology and creativity can merge to produce remarkable experiences, and I strive to make every project I work on both functional and visually captivating.
+        </p>
+
+        <div class="skills">
+          <div class="skill">HTML</div>
+          <div class="skill">CSS & Animations</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">React</div>
+          <div class="skill">Responsive Design</div>
+          <div class="skill">WebGL / Three.js</div>
+          <div class="skill">Tailwind CSS</div>
+          <div class="skill">UI/UX Design</div>
+          <div class="skill">Problem Solving</div>
+          <div class="skill">Open-Source Contribution</div>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h3>About & Education</h3>
+        <p class="info"><strong>From:</strong> Birendranagar-1, Surkhet, Nepal</p>
+        <p class="info"><strong>School:</strong> Mount Everest Secondary School</p>
+        <p class="info"><strong>Grade:</strong> Class 12 — Computer Science</p>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>    font-size: 1em;
     outline: none;
     background: rgba(255, 255, 255, 0.1);
     color: #00ffff;
